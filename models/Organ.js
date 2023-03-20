@@ -11,6 +11,9 @@ const OrganSchema = new Schema({
         type: String,
         required: true
     },
+    blood_group:{
+        type:String
+    },
     ethnic: {
         type: String
     },
