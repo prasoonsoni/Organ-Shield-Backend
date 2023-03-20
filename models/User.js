@@ -27,3 +27,5 @@ const UserSchema = new Schema({
         enum: ["donor", "recipient"]
     }
 }, { timestamps: true })
+
+export default mongoose.model("User", UserSchema)
