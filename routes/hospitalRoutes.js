@@ -7,5 +7,6 @@ router.get('/donor/:id', hospitalController.getAllOrgansByDonor)
 router.get('/recipient', hospitalController.getAllRecipients)
 router.get('/recipient/:id', hospitalController.getAllOrgansByRecipient)
 router.get('/organs/donate', hospitalController.getAllOrgansToDonate)
+router.get('/organs/receive', hospitalController.getAllOrgansToReceive)
 
 export default router

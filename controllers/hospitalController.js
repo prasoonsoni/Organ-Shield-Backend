@@ -53,4 +53,14 @@ const getAllOrgansToDonate = async (req, res) => {
         return res.json({ status: false, message: "Internal Server Error Occurred" })
     }
 }
-export default { getAllDonors, getAllRecipients, getAllOrgansByDonor, getAllOrgansByRecipient, getAllOrgansToDonate }
+
+const getAllOrgansToReceive = async (req, res) => {
+    try {
+        const organs = await Organ.find({ user_type: "recipient" })
+        return res.json({ status: true, message: "Organs Find Successfully", data: organs })
+    } catch (error) {
+        console.log(error.message)
+        return res.json({ status: false, message: "Internal Server Error Occurred" })
+    }
+}
+export default { getAllDonors, getAllRecipients, getAllOrgansByDonor, getAllOrgansByRecipient, getAllOrgansToDonate, getAllOrgansToReceive }
