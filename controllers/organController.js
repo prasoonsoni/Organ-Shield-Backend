@@ -46,7 +46,7 @@ const getOrgans = async (req, res) => {
     try {
         const user_id = new ObjectId(req.user.id)
         const organs = await Organ.find({ user_id: user_id })
-        return res.json({ status: false, message: "Organs Found", data: organs })
+        return res.json({ status: true, message: "Organs Found", data: organs })
     } catch (error) {
         console.log(error.message)
         return res.json({ status: false, message: "Internal Server Error Occurred" })
