@@ -4,6 +4,20 @@ import dotenv from "dotenv"
 import jwt from "jsonwebtoken"
 dotenv.config()
 
+const getUser = async (req, res) => {
+    try {
+        const id = req.user.id
+        const user = await User.findOne({ _id: id }).select('-password')
+        if (!user) {
+            return res.json({ status: false, message: "User Not Found" })
+        }
+        return res.json({ success: false, message: "User Found", data: user })
+    } catch (error) {
+        console.log(error.message)
+        return res.json({ status: false, message: "Internal Server Error Occurred" })
+    }
+}
+
 const createUser = async (req, res) => {
     try {
         const { name, email, password, type, address, blood_group, age, gender } = req.body
@@ -38,11 +52,11 @@ const login = async (req, res) => {
         }
         const data = { user: { id: user._id } }
         const token = jwt.sign(data, process.env.JWT_SECRET_KEY)
-        return res.json({ status: true, message: "Logged in Successfully", token, type: user.type })
+        return res.json({ status: true, message: "Logged in Successfully", data: { token: token, type: user.type } })
     } catch (error) {
         console.log(error.message)
         return res.json({ status: false, message: "Internal Server Error Occurred" })
     }
 }
 
-export default { createUser, login }
+export default { getUser, createUser, login }
