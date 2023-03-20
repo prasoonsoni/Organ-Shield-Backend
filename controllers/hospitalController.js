@@ -11,4 +11,14 @@ const getAllDonors = async (req, res) => {
     }
 }
 
-export default { getAllDonors }
+const getAllRecipients = async (req, res) => {
+    try {
+        const donors = await User.find({ type: "recipient" })
+        return res.json({ status: true, message: "Recipients Found", data: donors })
+    } catch (error) {
+        console.log(error.message)
+        return res.json({ status: false, message: "Internal Server Error Occurred" })
+    }
+}
+
+export default { getAllDonors, getAllRecipients }
