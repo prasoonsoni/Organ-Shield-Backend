@@ -1,7 +1,6 @@
 import User from "../models/User.js"
 import Organ from "../models/Organ.js"
 import { ObjectId } from "mongodb"
-import { trusted } from "mongoose"
 
 const addOrgan = async (req, res) => {
     try {
