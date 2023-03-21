@@ -8,7 +8,7 @@ const getStats = async (req, res) => {
         const recipients = await User.find({ type: "recipient" })
         const organsToDonate = await Organ.find({ user_type: "donor" })
         const organsToReceive = await Organ.find({ user_type: "recipient" })
-        return res.json({ success: true, message: "Data Found Successfully", data: { donors: donors.length, recipients: recipients.length, organsToDonate: organsToDonate.length, organsToReceive: organsToReceive.length } })
+        return res.json({ success: true, message: "Data Found Successfully", data: { donors: donors.length, recipients: recipients.length, organsToDonate: organsToDonate.length, organsToReceive: organsToReceive.length, transplants: 14 } })
     } catch (error) {
         console.log(error.message)
         return res.json({ success: false, message: "Internal Server Error Occurred" })
