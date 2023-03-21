@@ -16,7 +16,7 @@ const addOrgan = async (req, res) => {
         return res.json({ success: true, message: "Organ Added Successfully" })
     } catch (error) {
         console.log(error.message)
-        return res.json({ status: false, message: "Internal Server Error Occurred" })
+        return res.json({ success: false, message: "Internal Server Error Occurred" })
     }
 }
 
@@ -33,12 +33,12 @@ const deleteOrgan = async (req, res) => {
         }
         const deleteOrgan = await Organ.deleteOne({ _id: organ_id })
         if (!deleteOrgan.acknowledged) {
-            return res.json({ status: false, message: "Error Deleting Record" })
+            return res.json({ success: false, message: "Error Deleting Record" })
         }
-        return res.json({ status: true, message: "Record Deleted Successfully" })
+        return res.json({ success: true, message: "Record Deleted Successfully" })
     } catch (error) {
         console.log(error.message)
-        return res.json({ status: false, message: "Internal Server Error Occurred" })
+        return res.json({ success: false, message: "Internal Server Error Occurred" })
     }
 }
 
@@ -46,10 +46,10 @@ const getOrgans = async (req, res) => {
     try {
         const user_id = new ObjectId(req.user.id)
         const organs = await Organ.find({ user_id: user_id })
-        return res.json({ status: true, message: "Organs Found", data: organs })
+        return res.json({ success: true, message: "Organs Found", data: organs })
     } catch (error) {
         console.log(error.message)
-        return res.json({ status: false, message: "Internal Server Error Occurred" })
+        return res.json({ success: false, message: "Internal Server Error Occurred" })
     }
 }
 export default { addOrgan, deleteOrgan, getOrgans }
