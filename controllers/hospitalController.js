@@ -2,6 +2,19 @@ import { ObjectId } from "mongodb"
 import Organ from "../models/Organ.js"
 import User from "../models/User.js"
 
+const getStats = async (req, res) => {
+    try {
+        const donors = await User.find({ type: "donor" })
+        const recipients = await User.find({ type: "recipient" })
+        const organsToDonate = await Organ.find({ user_type: "donor" })
+        const organsToReceive = await Organ.find({ user_type: "recipient" })
+        return res.json({ success: true, message: "Data Found Successfully", data: { donors: donors.length, recipients: recipients.length, organsToDonate: organsToDonate.length, organsToReceive: organsToReceive.length } })
+    } catch (error) {
+        console.log(error.message)
+        return res.json({ success: false, message: "Internal Server Error Occurred" })
+    }
+}
+
 const getAllDonors = async (req, res) => {
     try {
         const donors = await User.find({ type: "donor" })
@@ -63,4 +76,4 @@ const getAllOrgansToReceive = async (req, res) => {
         return res.json({ success: false, message: "Internal Server Error Occurred" })
     }
 }
-export default { getAllDonors, getAllRecipients, getAllOrgansByDonor, getAllOrgansByRecipient, getAllOrgansToDonate, getAllOrgansToReceive }
+export default { getStats, getAllDonors, getAllRecipients, getAllOrgansByDonor, getAllOrgansByRecipient, getAllOrgansToDonate, getAllOrgansToReceive }
