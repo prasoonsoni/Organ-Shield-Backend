@@ -121,7 +121,7 @@ const matchDonorsRecipients = async (req, res) => {
 const approveMatch = async (req, res) => {
     try {
         const { donor_id, recipient_id, match_percentage, organ } = req.body
-        const alreadyMatched = await Match.findOne({ donor_id, recipient_id,organ })
+        const alreadyMatched = await Match.findOne({ donor_id, recipient_id, organ })
         if (alreadyMatched) {
             return res.json({ success: false, message: "Already Matched" })
         }
@@ -140,4 +140,14 @@ const approveMatch = async (req, res) => {
         return res.json({ success: false, message: "Internal Server Error Occurred" })
     }
 }
-export default { getStats, getAllDonors, getAllRecipients, getAllOrgansByDonor, getAllOrgansByRecipient, getAllOrgansToDonate, getAllOrgansToReceive, matchDonorsRecipients, approveMatch }
+
+const getSuccessfulTransplants = async (req, res) => {
+    try {
+        const transplants = await Match.find({ recipient_accept: true, hospital_approved: true })
+        return res.json({ success: true, message: "Data found successfully", data: transplants })
+    } catch (error) {
+        console.log(error.message)
+        return res.json({ success: false, message: "Internal Server Error Occurred" })
+    }
+}
+export default { getStats, getAllDonors, getAllRecipients, getAllOrgansByDonor, getAllOrgansByRecipient, getAllOrgansToDonate, getAllOrgansToReceive, matchDonorsRecipients, approveMatch, getSuccessfulTransplants }

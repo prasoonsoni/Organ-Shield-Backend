@@ -11,7 +11,7 @@ const getUser = async (req, res) => {
         if (!user) {
             return res.json({ success: false, message: "User Not Found" })
         }
-        return res.json({ success: false, message: "User Found", data: user })
+        return res.json({ success: true, message: "User Found", data: user })
     } catch (error) {
         console.log(error.message)
         return res.json({ success: false, message: "Internal Server Error Occurred" })

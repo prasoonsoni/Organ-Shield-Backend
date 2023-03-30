@@ -11,5 +11,6 @@ router.get('/organs/donate', hospitalController.getAllOrgansToDonate)
 router.get('/organs/receive', hospitalController.getAllOrgansToReceive)
 router.get('/match', hospitalController.matchDonorsRecipients)
 router.post('/match/approve', hospitalController.approveMatch)
+router.get('/transplants', hospitalController.getSuccessfulTransplants)
 
 export default router
