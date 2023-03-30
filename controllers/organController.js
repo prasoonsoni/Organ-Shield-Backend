@@ -57,7 +57,7 @@ const getOrgans = async (req, res) => {
 const getMatchedDonors = async (req, res) => {
     try {
         const match = await Match.find({ recipient_id: new ObjectId(req.user.id) })
-        return res.json({ success: false, message: "Matches Found Successfully", data: match })
+        return res.json({ success: true, message: "Matches Found Successfully", data: match })
     } catch (error) {
         console.log(error.message)
         return res.json({ success: false, message: "Internal Server Error Occurred" })

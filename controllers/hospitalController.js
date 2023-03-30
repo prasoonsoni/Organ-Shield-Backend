@@ -121,6 +121,10 @@ const matchDonorsRecipients = async (req, res) => {
 const approveMatch = async (req, res) => {
     try {
         const { donor_id, recipient_id, match_percentage, organ } = req.body
+        const alreadyMatched = await Match.findOne({ donor_id, recipient_id,organ })
+        if (alreadyMatched) {
+            return res.json({ success: false, message: "Already Matched" })
+        }
         const match = await Match.create({
             donor_id: new ObjectId(donor_id),
             recipient_id: new ObjectId(recipient_id),
