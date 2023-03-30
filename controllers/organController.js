@@ -1,5 +1,6 @@
 import User from "../models/User.js"
 import Organ from "../models/Organ.js"
+import Match from "../models/Match.js"
 import { ObjectId } from "mongodb"
 
 const addOrgan = async (req, res) => {
@@ -52,4 +53,14 @@ const getOrgans = async (req, res) => {
         return res.json({ success: false, message: "Internal Server Error Occurred" })
     }
 }
-export default { addOrgan, deleteOrgan, getOrgans }
+
+const getMatchedDonors = async (req, res) => {
+    try {
+        const match = await Match.find({ recipient_id: new ObjectId(req.user.id) })
+        return res.json({ success: false, message: "Matches Found Successfully", data: match })
+    } catch (error) {
+        console.log(error.message)
+        return res.json({ success: false, message: "Internal Server Error Occurred" })
+    }
+}
+export default { addOrgan, deleteOrgan, getOrgans, getMatchedDonors }
