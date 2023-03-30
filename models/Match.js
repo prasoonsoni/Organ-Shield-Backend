@@ -14,6 +14,10 @@ const MatchSchema = new Schema({
         type: Number,
         required: true
     },
+    organ:{
+        type:String,
+        required:true
+    },
     hospital_approved: {
         type: Boolean,
         default: true
