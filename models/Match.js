@@ -3,12 +3,26 @@ const { Schema } = mongoose
 
 const MatchSchema = new Schema({
     donor_id: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     },
     recipient_id: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     },
-    approved: {
+    match_percentage: {
+        type: Number,
+        required: true
+    },
+    hospital_approved: {
+        type: Boolean,
+        default: true
+    },
+    recipient_accept: {
+        type: Boolean,
+        default: false
+    },
+    donor_accept: {
         type: Boolean,
         default: true
     }
