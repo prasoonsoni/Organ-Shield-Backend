@@ -8,7 +8,8 @@ const getStats = async (req, res) => {
         const recipients = await User.find({ type: "recipient" })
         const organsToDonate = await Organ.find({ user_type: "donor" })
         const organsToReceive = await Organ.find({ user_type: "recipient" })
-        return res.json({ success: true, message: "Data Found Successfully", data: { donors: donors.length, recipients: recipients.length, organsToDonate: organsToDonate.length, organsToReceive: organsToReceive.length, transplants: 14 } })
+        const transplants = await Match.find({ hospital_approved: true, recipient_accept: true })
+        return res.json({ success: true, message: "Data Found Successfully", data: { donors: donors.length, recipients: recipients.length, organsToDonate: organsToDonate.length, organsToReceive: organsToReceive.length, transplants: transplants.length } })
     } catch (error) {
         console.log(error.message)
         return res.json({ success: false, message: "Internal Server Error Occurred" })
@@ -89,7 +90,7 @@ const matchDonorsRecipients = async (req, res) => {
                 // && Number(recipients[i].bmi) <= Number(donors[i].bmi) + 2 && Number(recipients[i].bmi) >= Number(donors[i].bmi) - 2
                 const match = await Match.findOne({ donor_id: new ObjectId(donors[j].user_id), organ: donors[j].organ_type })
                 // console.log(match)
-                if (match==null) {
+                if (match == null) {
                     if (recipients[i].blood_group.toLowerCase() === donors[j].blood_group.toLowerCase() && recipients[i].ethnic.toLowerCase() === donors[j].ethnic.toLowerCase() && recipients[i].organ_type.toLowerCase() === donors[j].organ_type.toLowerCase()) {
                         const match_percentage = Math.floor(Math.random() * (99 - 91) + 91);
                         data.push({

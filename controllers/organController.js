@@ -63,4 +63,17 @@ const getMatchedDonors = async (req, res) => {
         return res.json({ success: false, message: "Internal Server Error Occurred" })
     }
 }
-export default { addOrgan, deleteOrgan, getOrgans, getMatchedDonors }
+
+const acceptMatch = async (req, res) => {
+    try {
+        const match = await Match.updateOne({ recipient_id: new ObjectId(req.user.id) }, { $set: { recipient_accept: true } })
+        if (!match.acknowledged) {
+            return res.json({ success: false, message: "Error Accepting" })
+        }
+        return res.json({ success: true, message: "Accepted Successfully" })
+    } catch (error) {
+        console.log(error.message)
+        return res.json({ success: false, message: "Internal Server Error Occurred" })
+    }
+}
+export default { addOrgan, deleteOrgan, getOrgans, getMatchedDonors, acceptMatch }

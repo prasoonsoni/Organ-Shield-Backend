@@ -7,5 +7,6 @@ router.get('/', getUser, organController.getOrgans)
 router.post('/add', getUser, organController.addOrgan)
 router.delete('/delete/:id', getUser, organController.deleteOrgan)
 router.get('/matches', getUser, organController.getMatchedDonors)
+router.get('/accept', getUser, organController.acceptMatch)
 
 export default router
