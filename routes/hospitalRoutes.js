@@ -9,5 +9,6 @@ router.get('/recipient', hospitalController.getAllRecipients)
 router.get('/recipient/:id', hospitalController.getAllOrgansByRecipient)
 router.get('/organs/donate', hospitalController.getAllOrgansToDonate)
 router.get('/organs/receive', hospitalController.getAllOrgansToReceive)
+router.get('/match', hospitalController.matchDonorsRecipients)
 
 export default router

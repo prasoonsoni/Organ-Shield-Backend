@@ -32,7 +32,7 @@ const UserSchema = new Schema({
     },
     gender: {
         type: String,
-        enum: ["male", "female", "m", "f", "M", "F"],
+        enum: ["male", "female", "m", "f", "M", "F", "Male", "Female"],
         required: true
     }
 }, { timestamps: true })
