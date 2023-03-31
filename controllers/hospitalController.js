@@ -19,7 +19,14 @@ const getStats = async (req, res) => {
 const getAllDonors = async (req, res) => {
     try {
         const donors = await User.find({ type: "donor" })
-        return res.json({ success: true, message: "Donors Found", data: donors })
+        const data = []
+        for (let i = 0; i < donors.length; i++) {
+            const organAvailable = await Organ.findOne({ user_id: donors[i]._id })
+            if (organAvailable) {
+                data.push(donors[i])
+            }
+        }
+        return res.json({ success: true, message: "Donors Found", data: data })
     } catch (error) {
         console.log(error.message)
         return res.json({ success: false, message: "Internal Server Error Occurred" })
@@ -28,8 +35,15 @@ const getAllDonors = async (req, res) => {
 
 const getAllRecipients = async (req, res) => {
     try {
-        const donors = await User.find({ type: "recipient" })
-        return res.json({ success: true, message: "Recipients Found", data: donors })
+        const recipients = await User.find({ type: "recipient" })
+        const data = []
+        for (let i = 0; i < recipients.length; i++) {
+            const organAvailable = await Organ.findOne({ user_id: recipients[i]._id })
+            if (organAvailable) {
+                data.push(recipients[i])
+            }
+        }
+        return res.json({ success: true, message: "Recipients Found", data: data })
     } catch (error) {
         console.log(error.message)
         return res.json({ success: false, message: "Internal Server Error Occurred" })
